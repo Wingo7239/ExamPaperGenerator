@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd  
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd  
+    http://www.springframework.org/schema/aop   
+    http://www.springframework.org/schema/aop/spring-aop-2.5.xsd     
+    ">
+    
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    
+    <context:component-scan base-package="com.yw.dao"></context:component-scan>
+    
+    <!-- 数据库连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <!-- 连接池属性 -->
+    <property name="driverClass" value="${driver}"></property>
+    <property name="jdbcUrl" value="${url}"></property>
+    <property name="user" value="${username}"></property>
+    <property name="password" value="${password}"></property>
+    
+    
+    
+    <!-- c3p0属性 -->
+    <property name="maxPoolSize" value="30"></property>
+    <property name="minPoolSize" value="10"></property>
+    <property name="autoCommitOnClose" value="false"></property>
+    <property name="checkoutTimeout" value="1000"></property>
+    <property name="acquireRetryAttempts" value="2"></property>
+    </bean>
+    
+    <!-- sessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+    </bean>
+    
+    
+	
+    </beans>

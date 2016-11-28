@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 23, 2016 1:01:31 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.yw.domain.Category" table="Category" catalog="Tiku">
+        <id name="id" type="string">
+            <column name="ID" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="80" not-null="true" />
+        </property>
+        <property name="isFolder" type="boolean">
+            <column name="isFolder" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
