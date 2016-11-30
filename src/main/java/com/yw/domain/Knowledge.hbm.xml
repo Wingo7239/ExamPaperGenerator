@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 23, 2016 1:01:31 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Nov 29, 2016 3:45:16 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.yw.domain.Category" table="Category" catalog="Tiku">
+    <class name="com.yw.domain.Knowledge" table="knowledge" catalog="Tiku">
         <id name="id" type="string">
             <column name="ID" length="10" />
             <generator class="assigned" />
@@ -14,5 +14,11 @@
         <property name="isFolder" type="boolean">
             <column name="isFolder" not-null="true" />
         </property>
+        <!-- <set name="questions" table="question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Knowledge" length="10" not-null="true" />
+            </key>
+            <one-to-many class="com.yw.domain.Question" />
+        </set> -->
     </class>
 </hibernate-mapping>

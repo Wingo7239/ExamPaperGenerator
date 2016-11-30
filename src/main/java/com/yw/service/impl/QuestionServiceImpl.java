@@ -1,6 +1,9 @@
 package com.yw.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yw.dao.CategoryDao;
+import com.yw.dao.KnowledgeDao;
 import com.yw.dao.QuestionDao;
 import com.yw.domain.Question;
+import com.yw.domain.Knowledge;
 import com.yw.enums.QuestionTypeEnum;
 import com.yw.service.QuestionService;
 
@@ -26,9 +30,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 	
 
-	public int insertQuestion(String type, String memo, String answer, String source, String year, String Category) {
+	public int insertQuestion(String type, String memo, String answer, String source, String year, String Knowledge) {
 		// TODO Auto-generated method stub
-		return (Integer) questionDao.add(new Question(QuestionTypeEnum.idOf(type).getId(), memo, answer, source, year, Category));
+		return (Integer) questionDao.add(new Question(new Knowledge(Knowledge), Integer.parseInt(type), memo, answer, source, year));
 	}
 
 	public boolean deleteQuestion(int id) {
@@ -48,7 +52,7 @@ public class QuestionServiceImpl implements QuestionService {
 			hql += " AND q.year= "+year;
 		}
 		if(knol != null && knol != ""){
-			hql += " AND q.category like '"+knol+"%'";
+			hql += " AND q.knowledge like '"+knol+"%'";
 		}
 		if(search != null && search !=""){
 			hql += " AND q.memo like %" +search+"%";
@@ -92,7 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
 			else{
 				hql += " AND ";
 			}
-			hql += "q.category like '"+knol+"%'";
+			hql += "q.knowledge like '"+knol+"%'";
 		}
 		if(search != null && search !=""){
 			if(!flag){
@@ -104,9 +108,42 @@ public class QuestionServiceImpl implements QuestionService {
 			}
 			hql += "q.memo like %" +search+"%";
 		}
-		return questionDao.executeQueryByPage(hql, null, pageNow, pageSize);
+		
+		List<Question> res = questionDao.executeQueryByPage(hql, null, pageNow, pageSize);
+		getImageUrl(res);
+		return  res;
+	}
+
+	public Question getById(int id) {
+		// TODO Auto-generated method stub
+		
+		List<Question> res = new ArrayList<Question>();
+		res.add((Question) questionDao.findById(Question.class, id));
+		return res.get(0);
+		
 	}
 
 	
+	// 图片加前缀,之后改数据库进行或者下载到本地
+	public void getImageUrl(List<Question> list){
+		Pattern p = Pattern.compile("(<img.*?src=')(.*?)'/>");
+		for (Question q : list) {
+			Matcher m = p.matcher(q.getMemo());
+			StringBuffer sb = new StringBuffer();
+			while (m.find()) {
+				m.appendReplacement(sb, m.group(1) + "http://zujuan.ks5u.com" + m.group(2) + "'./>");
+			}
+			m.appendTail(sb);
+			q.setMemo(sb.toString());
+
+			m = p.matcher(q.getAnswer());
+			sb = new StringBuffer();
+			while (m.find()) {
+				m.appendReplacement(sb, m.group(1) + "http://zujuan.ks5u.com" + m.group(2) + "'./>");
+			}
+			m.appendTail(sb);
+			q.setAnswer(sb.toString());
+		}
+	}
 
 }

@@ -48,4 +48,6 @@ public interface QuestionService {
 	 * @return
 	 */
 	boolean deleteQuestion(int id);
+
+	Question getById(int id);
 }

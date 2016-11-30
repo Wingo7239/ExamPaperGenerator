@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yw.domain.Question;
-import com.yw.service.CategoryService;
+import com.yw.service.KnowledgeService;
 import com.yw.service.QuestionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,7 +26,7 @@ public class QuestionServiceTest {
 	public void testGetQuestionListByPage(){
 		List<Question> list = questionService.getQuestionListByPage(1, 15, "", "09", "", "");
 		for(Question q : list){
-			System.out.println(q.getOid()+" : "+q.getType());
+			System.out.println(q.getKnowledge().getId()+" : "+q.getKnowledge().getId());
 		}
 	}
 	

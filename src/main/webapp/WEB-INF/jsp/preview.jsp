@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="common/tag.jsp"%>
+<%@ page import="com.yw.dto.Cart"%>
+<%@ page import="com.yw.domain.Question"%>
+ <%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +12,6 @@
 <%@include file="common/head.jsp"%>
 </head>
 <body>
-
 	<div class="top-nav-wrap">
 		<div class="tn-header">
 			<div class="tn-nav">
@@ -31,29 +33,55 @@
 	</div>
 
 
-	<div class="container" style="padding-top: 15px">
-		<div class="row clearfix">
-			<div class="col-md-1 column"></div>
-			<div class="col-md-10 column">
-				<div id="pui_head">
-					<div id="pui_title">
-						<div id="pui_maintitle" title="试卷主标题" style="display: block;">xxx学校2016-2017学年度11月同步练习</div>
-						<div id="pui_subtitle" title="试卷副标题" style="display: block;">物理试卷</div>
-					</div>
-					<div id="pui_testinfo" title="试卷信息栏" style="display: block;">考试范围：xxx；考试时间：100分钟；命题人：xxx</div>
-					<div id="pui_studentinput" title="考生信息填写栏" style="display: none;">学校:___________姓名：___________班级：___________考号：___________</div>
-					<div id="pui_notice" title="考生注意事项栏" style="display: block;">
-						<div id="pui_noticetip">注意事项：</div>
-						<div id="pui_noticetext">
-							1．答题前填写好自己的姓名、班级、考号等信息<br>2．请将答案正确填写在答题卡上
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-md-1 column"></div>
-		</div>
-	</div>
+	<div class="container" style="padding-top:15px">
+                <div class="row clearfix">
+                    <div class="col-md-1 column"></div>
+                    <div class="col-md-10 column">
+                        <div id="pui_head">
+                            <div id="pui_title">
+                                <div id="pui_maintitle" title="试卷主标题">曲靖市第一中学2016～2017学年度第一学期期中考试</div>
+                                <div id="pui_subtitle" title="试卷副标题">高二年级物理试卷</div>
+                            </div>
+                            <div id="pui_testinfo" title="试卷信息栏" style="display: block;">
+                                命题人：李昆华 审核人：董光顺 分值110分 考试时间：90分钟</div>
+                        </div>
+                        
+                        
+                        	<%final String[] no = {"一、","二、","三、","四、","五、","六、"};
+                        	int i = 1,j=1;
+                         	for(Cart c : (List<Cart>)request.getAttribute("cart")){%>
+                         		
+                         		
+                         		<div id="ques_group_<%=i%>">
+                                <div class="questypehead">
+                                    <div class="questypeheadbox" id="questypeheadbox<%=i %>">
+                                    <div class="questypetitle">
+   										 	<span class="questypeindex"><b>一、</b></span>
+    										<span class="questypename" id="questypename<%=i %>">选择题</span>
+    										<span class="questypenote" id="questypenote<%=i %>">（本题共<%=c.getCount()%>道小题，每小题0分，共0分）</span>
+									</div>
+									</div>
+                            	</div>
+                            	<% for(Question q : c.getQuesList()) {
+                            	String[] str = q.getMemo().split(">", 2);%>
+                            	
+                            	
+                            	
+                            	<div class="ques" id="<%=q.getId() %>" >
+                            	<%= str[0]+"><span><b>"+j+++".</b></span>"+str[1] %>
+                            	</div>
+                            	<%}%>
+                            	</div>
+                         	<%}%>
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="col-md-1 column"></div>
+                </div>
+            </div>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
  <%@ page import="java.util.List"%>
- <%@ page import="com.yw.domain.Category"%>
+ <%@ page import="com.yw.domain.Knowledge"%>
 <!-- 引入jstl -->
 <%@ include file="common/tag.jsp" %>
 <!DOCTYPE html>
@@ -40,7 +40,7 @@
 			<li class="active"><a href="#">全部</a></li>
 			<%
 			String id = (String)request.getAttribute("subjectId");
-			for(Category c : (List<Category>)request.getAttribute(id)){
+			for(Knowledge c : (List<Knowledge>)request.getAttribute(id)){
 				if(c.isIsFolder()){%>
 				
 				<li class="dropdown">
@@ -51,7 +51,7 @@
 				<ul class="dropdown-menu">
 				
 					<li><a href="#">全部</a></li>
-					<% for(Category ca : (List<Category>)request.getAttribute(c.getId())){%>
+					<% for(Knowledge ca : (List<Knowledge>)request.getAttribute(c.getId())){%>
 						<li><a href="#"><%=ca.getName() %></a></li>
 					<%}%>
 					</ul>
@@ -94,12 +94,18 @@
 			<div class="row">
 			<div class="list-group">
 				 <c:forEach var="qes" items="${list}">
-				<a class="list-group-item active">${qes.source}</a>
+				 <div class="quesItem">
+				<a class="list-group-item active">
+				<h4 class="list-group-item-heading">${qes.source}</h4>
+				<p class="list-group-item-text" ">题型：填空题 | 知识点：${qes.knowledge.name}</p>	
+				<button type="button" id="${qes.id }" tid="${que.type}" qid="${qes.id}">添加</button>
+				</a>
 				<div class="list-group-item">
 					${qes.memo} 
 				</div>
 				<div class="list-group-item">
 					${qes.answer}
+				</div>
 				</div>
 				
 			</c:forEach>
@@ -137,9 +143,6 @@
 	</div>
 </div>
    </body>
-   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
 	
 </html>

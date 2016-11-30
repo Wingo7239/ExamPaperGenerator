@@ -1,3 +1,4 @@
+/*=导航=*/
 .top-nav-wrap{position:relative;z-index:30;min-width:1000px;height:75px;background:#fff;border-bottom:1px solid #d9d9d9;-webkit-box-shadow:rgba(0,0,0,0.05) 3px 3px 4px;-moz-box-shadow:rgba(0,0,0,0.05) 3px 3px 4px;box-shadow:rgba(0,0,0,0.05) 3px 3px 4px}
 .top-nav-wrap .tn-header{width:1000px; margin:0 auto; position: relative;font-family:"Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", "SimSun", "\5b8b\4f53"; }
 .top-nav-wrap .tn-nav{float:left; _display:inline;width:850px; }
@@ -16,3 +17,38 @@
 
 .top-nav-wrap .tn-title-login .nav-link:hover{background:#f7f7f7}
 
+#pui_head {
+    position: relative;
+    margin-left: 5px;
+    border: 1px solid #fff;
+    cursor: default;
+    text-align: center;
+}
+
+#pui_maintitle {
+    font-size: 20px;
+    display: block;
+}
+
+#pui_subtitle {
+    font-size: 20px;
+    display: block;
+}
+
+
+.questypehead {
+    border: 1px solid #fff;
+    background-color: #fff;
+    position: relative;
+    padding-left: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: default;
+    display: block;
+}
+
+.questypetitle {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 14px;
+}

@@ -5,9 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">Wyg3187239</property>
+        <property name="hibernate.connection.password"></property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Tiku</property>
-        <property name="hibernate.connection.username">yingguowu</property>
+        <property name="hibernate.connection.username"></property>
 <!--         <property name="hibernate.default_schema">seckill</property> -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         
@@ -15,7 +15,7 @@
         <property name="format_sql">true</property>
        <!--   <property name="hbm2ddl.auto">create</property>	-->
         
-        <mapping resource="com/yw/domain/Category.hbm.xml"/>
+        <mapping resource="com/yw/domain/Knowledge.hbm.xml"/>
         <mapping resource="com/yw/domain/Question.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
