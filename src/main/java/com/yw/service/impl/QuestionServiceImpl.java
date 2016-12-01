@@ -45,17 +45,46 @@ public class QuestionServiceImpl implements QuestionService {
 	public int getQuestionPageCount(int pageSize, String type, String knol, String year, String search) {
 		// TODO Auto-generated method stub
 		String hql = "from Question as q  ";
+		boolean flag = false;
 		if(type != null && type != ""){
-			hql += "where q.type= '"+type+"'";
+			if(!flag){
+				hql += " where ";
+				flag = true;
+				}
+			else{
+				hql += " AND ";
+			}
+			hql += "q.type= '"+type+"'";
 		}
 		if(year != null && year != ""){
-			hql += " AND q.year= "+year;
+			if(!flag){
+				hql += " where ";
+				flag = true;
+				}
+			else{
+				hql += " AND ";
+			}
+			hql += "q.year= "+year;
 		}
 		if(knol != null && knol != ""){
-			hql += " AND q.knowledge like '"+knol+"%'";
+			if(!flag){
+				hql += " where ";
+				flag = true;
+				}
+			else{
+				hql += " AND ";
+			}
+			hql += "q.knowledge like '"+knol+"%'";
 		}
 		if(search != null && search !=""){
-			hql += " AND q.memo like %" +search+"%";
+			if(!flag){
+				hql += " where ";
+				flag = true;
+				}
+			else{
+				hql += " AND ";
+			}
+			hql += "q.memo like %" +search+"%";
 		}
 		
 		return questionDao.getPageCount(hql, null, pageSize);

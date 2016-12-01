@@ -41,7 +41,6 @@ public class QuesntionController {
 	public String list(@PathVariable("subjectId") String subjectId, Model model) {
 		List<Question> list = questionService.getQuestionListByPage(10, 15, "", subjectId, "", "");
 
-		// 图片加前缀,之后改数据库进行或者下载到本地
 		model.addAttribute("subjectId", subjectId);
 		model.addAttribute("list", list);
 		model.addAttribute("type", QuestionTypeEnum.values());
@@ -74,16 +73,6 @@ public class QuesntionController {
 		res.put("pageCount", questionService.getQuestionPageCount(ps, type, knol, "", search));
 		res.put("list", list);
 		return res;
-
-	}
-
-	@RequestMapping(value = "/pageCount", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
-	@ResponseBody
-	public int pageCount(@RequestParam("pageNow") String pageNow, @RequestParam("pageSize") String pageSize,
-			@RequestParam("knowledge") String knol, @RequestParam("type") String type,
-			@RequestParam("search") String search) {
-
-		return questionService.getQuestionPageCount(Integer.parseInt(pageSize), type, knol, "", search);
 
 	}
 }
