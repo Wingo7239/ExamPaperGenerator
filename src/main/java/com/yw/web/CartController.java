@@ -34,11 +34,11 @@ public class CartController {
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public ArrayList<Cart> addToCart(@CookieValue(value = "cart",required  = false) String cartStr,@RequestParam("type") int type,@RequestParam("ques") String qid){
+	public ArrayList<Cart> addToCart(@CookieValue(value = "JSESSIONID",required  = false) String sId,@RequestParam("type") int type,@RequestParam("ques") String qid){
 		
 		ArrayList<Cart> cart = new ArrayList<Cart>();
-		
-		if(cartStr == null){
+		String cartStr = "";
+		if(sId == null){
 			
 		}else{
 			ObjectMapper mapper = new ObjectMapper();
