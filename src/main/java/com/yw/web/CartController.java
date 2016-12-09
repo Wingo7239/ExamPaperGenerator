@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yw.domain.Question;
 import com.yw.dto.Cart;
+import com.yw.service.CartService;
 import com.yw.service.QuestionService;
 
 import net.sf.json.JSONObject;
@@ -26,49 +27,36 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("")
 public class CartController {
-	
+
 	@Autowired
-	private QuestionService questionService;
-	
-	
+	private CartService cartService;
+
+	@RequestMapping(value = "/cart", method = RequestMethod.POST, produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public boolean addToCart(@CookieValue(value = "JSESSIONID", required = false) String sid,
+			@CookieValue(value = "UID", required = false) String uid,@RequestParam("list") String list) {
+		if(uid != null){
+			cartService.insertCart(uid, list);
+		}
+		else if(sid != null){
+			cartService.insertCart(sid, list);
+		}
+		else
+			return false;
+		return true;
+	}
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public ArrayList<Cart> addToCart(@CookieValue(value = "JSESSIONID",required  = false) String sId,@RequestParam("type") int type,@RequestParam("ques") String qid){
-		
-		ArrayList<Cart> cart = new ArrayList<Cart>();
-		String cartStr = "";
-		if(sId == null){
-			
-		}else{
-			ObjectMapper mapper = new ObjectMapper();
-			
-			try {
-				Cart[] list= mapper.readValue(cartStr, Cart[].class);
-				for(Cart cd : list){
-					ArrayList<Question> quesList = cd.getQuesList();
-					for(int i = 0 ; i < quesList.size();i++){
-						quesList.set(i, questionService.getById(quesList.get(i).getId()));
-					}
-					cart.add(new Cart(cd.getName(), cd.getCount(), quesList));
-				}
-				
-			} catch (JsonParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+	public String getCart(@CookieValue(value = "JSESSIONID", required = false) String sid,
+			@CookieValue(value = "UID", required = false) String uid) {
+		if(uid != null){
+			return cartService.getCart(uid);
 		}
-
-		return cart;	
+		else if(sid != null){
+			return cartService.getCart(sid);
+		}
+		return "";
 	}
-	
-	
-	
+
 }

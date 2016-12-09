@@ -49,16 +49,18 @@
                         
                         	<%final String[] no = {"一、","二、","三、","四、","五、","六、"};
                         	int i = 1,j=1;
-                         	for(Cart c : (List<Cart>)request.getAttribute("cart")){%>
-                         		
+                        	List<Cart> list =  (List<Cart>)request.getAttribute("cart");
+                        	List<String> titleList =  (List<String>)request.getAttribute("titleList");
+                         	for(int x = 0 ; x < list.size() ; x++){
+                         		Cart c = list.get(x);%>
                          		
                          		<div id="ques_group_<%=i%>">
                                 <div class="questypehead">
                                     <div class="questypeheadbox" id="questypeheadbox<%=i %>">
                                     <div class="questypetitle">
-   										 	<span class="questypeindex"><b>一、</b></span>
-    										<span class="questypename" id="questypename<%=i %>">选择题</span>
-    										<span class="questypenote" id="questypenote<%=i %>">（本题共<%=c.getCount()%>道小题，每小题0分，共0分）</span>
+   										 	<span class="questypeindex"><b><%=no[x] %></b></span>
+    										<span class="questypename" id="questypename<%=i %>"><%=c.getName() %></span>
+    										<span class="questypenote" id="questypenote<%=i %>">（本题共<%=c.getCount()%>道小题，<%=titleList.get(x) %>）</span>
 									</div>
 									</div>
                             	</div>
