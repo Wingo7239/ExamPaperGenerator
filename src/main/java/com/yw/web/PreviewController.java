@@ -29,6 +29,7 @@ import com.yw.domain.Knowledge;
 import com.yw.domain.Question;
 import com.yw.dto.Cart;
 import com.yw.enums.QuestionTypeEnum;
+import com.yw.service.CartService;
 import com.yw.service.QuestionService;
 
 import net.sf.json.JSONObject;
@@ -41,21 +42,26 @@ public class PreviewController {
 
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping(value = "/preview", method = RequestMethod.GET)
-	public String addToCart(@CookieValue(value = "cart", required = false) String cartStr, Model model) {
+	public String addToCart(@CookieValue(value = "JSESSIONID", required = false) String sid,
+			@CookieValue(value = "UID", required = false) String uid, Model model) {
 
 		
+//		String cartStr = (uid == null?cartService.getCart(sid):cartService.getCart(uid));
 		
-		cartStr = "[{\"count\":3,\"name\":\"选择题\",\"queslist\":[1,2,3]}]";
+		String cartStr = "[{\"count\":2,\"name\":\"填空题\",\"queslist\":[1,2]},{\"count\":2,\"name\":\"计算题\",\"queslist\":[3,4]}]";
 		
 		
 		
 		
 		ArrayList<Cart> cart = new ArrayList<Cart>();
+		ArrayList<String> titleList = new ArrayList<String>();
 
 		if (cartStr == null) {
-
+			return "error";
 		} else {
 			ObjectMapper mapper = new ObjectMapper();
 
@@ -70,10 +76,23 @@ public class PreviewController {
 		            for(Integer n : queslist){
 		            	res.add(questionService.getById(n));
 		            }
-		            cart.add(new Cart((String)map.get("name"), (Integer)map.get("count"), res));
+		            Cart tmp = new Cart((String)map.get("name"), (Integer)map.get("count"), res);
+		            cart.add(tmp);
+		            if(tmp.getName().equals("选择题")||tmp.getName().equals("填空题")||tmp.getName().equals("判断题")||tmp.getName().equals("实验题")){
+		            	titleList.add("每小题0分，共0分");
+		            }
+		            else{
+		            	String str = "";
+		            	for(int j = 1 ; j <tmp.getCount() ; j++){
+		            		str +="第"+j+"题0分，";
+		            	}
+		            	str +="第"+tmp.getCount()+"题0分，共0分";
+		            	titleList.add(str);
+		            }
 		            
 		        }
 				model.addAttribute("cart",cart);
+				model.addAttribute("titleList",titleList);
 
 			} catch (JsonParseException e) {
 				// TODO Auto-generated catch block
