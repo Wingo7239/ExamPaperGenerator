@@ -44,69 +44,77 @@ public class PreviewController {
 	private QuestionService questionService;
 	@Autowired
 	private CartService cartService;
-
+	
 	@RequestMapping(value = "/preview", method = RequestMethod.GET)
-	public String addToCart(@CookieValue(value = "JSESSIONID", required = false) String sid,
-			@CookieValue(value = "UID", required = false) String uid, Model model) {
-
-		
-//		String cartStr = (uid == null?cartService.getCart(sid):cartService.getCart(uid));
-		
-		String cartStr = "[{\"count\":2,\"name\":\"填空题\",\"queslist\":[1,2]},{\"count\":2,\"name\":\"计算题\",\"queslist\":[3,4]}]";
-		
-		
-		
-		
-		ArrayList<Cart> cart = new ArrayList<Cart>();
-		ArrayList<String> titleList = new ArrayList<String>();
-
-		if (cartStr == null) {
-			return "error";
-		} else {
-			ObjectMapper mapper = new ObjectMapper();
-
-			try {
-				
-				List<LinkedHashMap<String, Object>> list = mapper.readValue(cartStr, List.class);
-		        System.out.println(list.size());
-		        for (int i = 0; i < list.size(); i++) {
-		            Map<String, Object> map = list.get(i);
-		            ArrayList<Integer> queslist = (ArrayList<Integer>) map.get("queslist");
-		            ArrayList<Question> res = new ArrayList<Question>();
-		            for(Integer n : queslist){
-		            	res.add(questionService.getById(n));
-		            }
-		            Cart tmp = new Cart((String)map.get("name"), (Integer)map.get("count"), res);
-		            cart.add(tmp);
-		            if(tmp.getName().equals("选择题")||tmp.getName().equals("填空题")||tmp.getName().equals("判断题")||tmp.getName().equals("实验题")){
-		            	titleList.add("每小题0分，共0分");
-		            }
-		            else{
-		            	String str = "";
-		            	for(int j = 1 ; j <tmp.getCount() ; j++){
-		            		str +="第"+j+"题0分，";
-		            	}
-		            	str +="第"+tmp.getCount()+"题0分，共0分";
-		            	titleList.add(str);
-		            }
-		            
-		        }
-				model.addAttribute("cart",cart);
-				model.addAttribute("titleList",titleList);
-
-			} catch (JsonParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
-		return "preview";
+	public String a(Model mode){
+		return "preview-";
 	}
+	
+
+//	@RequestMapping(value = "/preview", method = RequestMethod.GET)
+//	public String addToCart(@CookieValue(value = "JSESSIONID", required = false) String sid,
+//			@CookieValue(value = "UID", required = false) String uid, Model model) {
+//
+//		
+//		String cartStr = (uid == null?cartService.getCart(sid):cartService.getCart(uid));
+//		
+////		String cartStr = "[{\"count\":2,\"name\":\"填空题\",\"queslist\":[1,2]},{\"count\":2,\"name\":\"计算题\",\"queslist\":[3,4]}]";
+//		
+//		
+//		
+//		
+//		ArrayList<Cart> cart = new ArrayList<Cart>();
+//		ArrayList<String> titleList = new ArrayList<String>();
+//
+//		if (cartStr == null) {
+//			return "error";
+//		} else {
+//			ObjectMapper mapper = new ObjectMapper();
+//
+//			try {
+//				
+//				List<LinkedHashMap<String, Object>> list = mapper.readValue(cartStr, List.class);
+//		        System.out.println(list.size());
+//		        for (int i = 0; i < list.size(); i++) {
+//		            Map<String, Object> map = list.get(i);
+//		            if((Integer)map.get("count") == 0)
+//		            	continue;
+//		            ArrayList<String> queslist = (ArrayList<String>) map.get("queslist");
+//		            ArrayList<Question> res = new ArrayList<Question>();
+//		            for(String n : queslist){
+//		            	res.add(questionService.getById(Integer.parseInt(n)));
+//		            }
+//		            Cart tmp = new Cart((String)map.get("name"), (Integer)map.get("count"), res);
+//		            cart.add(tmp);
+//		            if(tmp.getName().equals("选择题")||tmp.getName().equals("填空题")||tmp.getName().equals("判断题")||tmp.getName().equals("实验题")){
+//		            	titleList.add("每小题0分，共0分");
+//		            }
+//		            else{
+//		            	String str = "";
+//		            	for(int j = 1 ; j <tmp.getCount() ; j++){
+//		            		str +="第"+j+"题0分，";
+//		            	}
+//		            	str +="第"+tmp.getCount()+"题0分，共0分";
+//		            	titleList.add(str);
+//		            }
+//		            
+//		        }
+//				model.addAttribute("cart",cart);
+//				model.addAttribute("titleList",titleList);
+//
+//			} catch (JsonParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (JsonMappingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//		}
+//
+//		return "preview";
+//	}
 }

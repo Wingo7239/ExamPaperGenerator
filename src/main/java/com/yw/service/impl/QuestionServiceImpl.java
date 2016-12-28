@@ -84,7 +84,7 @@ public class QuestionServiceImpl implements QuestionService {
 			else{
 				hql += " AND ";
 			}
-			hql += "q.memo like %" +search+"%";
+			hql += "q.memo like '%" +search+"%'";
 		}
 		
 		return questionDao.getPageCount(hql, null, pageSize);
@@ -135,7 +135,7 @@ public class QuestionServiceImpl implements QuestionService {
 			else{
 				hql += " AND ";
 			}
-			hql += "q.memo like %" +search+"%";
+			hql += "q.memo like '%" +search+"%'";
 		}
 		
 		List<Question> res = questionDao.executeQueryByPage(hql, null, pageNow, pageSize);
@@ -155,6 +155,8 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	// 图片加前缀,之后改数据库进行或者下载到本地
 	public void getImageUrl(List<Question> list){
+		if(list == null)
+			return;
 		Pattern p = Pattern.compile("(<img.*?src=')(.*?)'/>");
 		for (Question q : list) {
 			Matcher m = p.matcher(q.getMemo());

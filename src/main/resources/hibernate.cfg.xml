@@ -18,5 +18,6 @@
         <mapping resource="com/yw/domain/Knowledge.hbm.xml"/>
         <mapping resource="com/yw/domain/Question.hbm.xml"/>
          <mapping resource="com/yw/domain/Cart.hbm.xml"/>
+         <mapping resource="com/yw/domain/Paper.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

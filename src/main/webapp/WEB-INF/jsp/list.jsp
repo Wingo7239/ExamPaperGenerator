@@ -9,7 +9,6 @@
 <head>
 <title>题库</title>
 <%@include file="common/head.jsp"%>
-
 </head>
 <body>
 	<div class="top-nav-wrap">
@@ -23,7 +22,14 @@
 			<div class="tn-person-r">
 				<div class="tn-title-login">
 					<div>
-						<a class="nav-link"> 注册 </a> <a class="nav-link"> 登陆 </a>
+						<a class="nav-link"> 注册 </a> <a class="nav-link"> 登陆 
+							<a class="basket" style="display:none" ms-controller="basket"> <span>试题篮</span> <i
+								ms-text="num"></i> <strong> <span ms-repeat="list">
+										<span ms-text="el.name"></span> <span ms-text="el.count"></span>
+								</span> <small id="updata">确定出题</small>
+							</strong>
+						</a>
+						</a>
 
 					</div>
 
@@ -48,7 +54,7 @@
 				for(Knowledge k : (List<Knowledge>)request.getAttribute(c.getId())){
 				%>
 					<li><a class="link" href="#" knowledge="<%=k.getId()%>"><%=k.getName() %></a></li>
-				<%} %>
+					<%} %>
 				</ul></li>
 			<%}} %>
 
@@ -65,6 +71,12 @@
 			<li class="NextAndPrev"><a href="#" ms-attr-pageNum="next">Next</a>
 			</li>
 		</ul>
+		<a class="basket" ms-controller="basket"> <span>试题篮</span> <i
+			ms-text="num"></i> <strong> <span ms-repeat="list"> <span
+					ms-text="el.name"></span> <span ms-text="el.count"></span>
+			</span> <small id="updata">确定出题</small>
+		</strong>
+		</a>
 	</nav>
 
 	<div class="container" style="padding-top: 15px">
@@ -99,12 +111,16 @@
 				<div class="row">
 					<div class="list-group" ms-controller="exeList">
 						<div ms-repeat="list">
-							<a class="list-group-item active">
+							<div class="title list-group-item active">
 
 								<h4 class="list-group-item-heading" ms-text="el.source"></h4>
 								<p class="list-group-item-text"
 									ms-text="'知识点：'+el.knowledge.name"></p>
-							</a>
+								<a class="addBasket" ms-attr-questionid="el.id"
+									ms-attr-type="el.type" ms-if="!el.isadd" is-add="false">添加到试题篮</a>
+								<a class="addBasket" ms-attr-questionid="el.id"
+									ms-attr-type="el.type" ms-if="el.isadd" is-add="true">已在试题篮</a>
+							</div>
 							<div class="list-group-item" ms-html="el.memo"></div>
 							<div class="list-group-item" ms-html="el.answer"></div>
 						</div>

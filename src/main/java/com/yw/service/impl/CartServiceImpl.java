@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
 		Cart c = (Cart) cartDao.findById(Cart.class, id);
 		if (c != null)
 			return c.getList();
-		return "";
+		return "[]";
 	}
 
 }

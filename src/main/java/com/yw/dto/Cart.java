@@ -1,8 +1,7 @@
 package com.yw.dto;
 
 import java.util.ArrayList;
-
-import com.yw.domain.Question;
+import java.util.List;
 
 
 public class Cart {
@@ -10,12 +9,21 @@ public class Cart {
 	
 	private String name;
 	private int count;
-	private ArrayList<Question> quesList;
+	private ArrayList<String> queslist;
 	
-	public Cart(String name, int count, ArrayList<Question> quesList) {		
+	public Cart(String name, int count, List<String> quesList) {		
 		this.name = name;
 		this.setCount(count);
-		this.quesList = quesList;
+		this.queslist = (ArrayList<String>) quesList;
+	}
+	
+	public Cart(String name, int count, String[] quesList) {		
+		this.name = name;
+		this.setCount(count);
+		this.queslist = new ArrayList<String>();
+		for(String s:queslist){
+			this.queslist.add(s);
+		}
 	}
 	
 	public String getName() {
@@ -24,11 +32,11 @@ public class Cart {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<Question> getQuesList() {
-		return quesList;
+	public ArrayList<String> getQueslist() {
+		return queslist;
 	}
-	public void setQuesList(ArrayList<Question> quesList) {
-		this.quesList = quesList;
+	public void setQueslist(ArrayList<String> quesList) {
+		this.queslist = quesList;
 	}
 
 	public int getCount() {
