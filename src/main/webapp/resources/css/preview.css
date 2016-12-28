@@ -1,0 +1,166 @@
+@charset "UTF-8";
+/* v 1.0.0 */
+/* 修改内容： */
+/* 1. */
+/* line 25, ../sass/preview.sass */
+* {
+  box-sizing: border-box;
+}
+
+/* line 27, ../sass/preview.sass */
+#main {
+  width: 980px;
+  margin: 0 auto;
+}
+/* line 30, ../sass/preview.sass */
+#main > .option {
+  overflow: hidden;
+}
+/* line 32, ../sass/preview.sass */
+#main > .option > a {
+  display: block;
+  margin: 5px 10px;
+  padding: 5px 15px;
+  font-size: 18px;
+  text-align: center;
+  background-color: #428bca;
+  border: 1px solid #428bca;
+  color: #ffffff;
+  border-radius: 5px;
+  z-index: 10;
+  cursor: pointer;
+}
+/* line 44, ../sass/preview.sass */
+#main > .option > a:hover {
+  background-color: #ffffff;
+  border: 1px solid #428bca;
+  color: #428bca;
+}
+/* line 48, ../sass/preview.sass */
+#main > .option > a#ok {
+  float: right;
+}
+/* line 50, ../sass/preview.sass */
+#main > .option > a#again {
+  float: left;
+}
+/* line 53, ../sass/preview.sass */
+#main > .title > div {
+  padding: 5px 0;
+  text-align: center;
+}
+/* line 56, ../sass/preview.sass */
+#main > .title > div input {
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: center;
+}
+/* line 61, ../sass/preview.sass */
+#main > .title > .mainTitle > input {
+  width: 60%;
+  font-size: 30px;
+}
+/* line 65, ../sass/preview.sass */
+#main > .title > .secondTitle > input {
+  width: 40%;
+  font-size: 24px;
+}
+/* line 68, ../sass/preview.sass */
+#main > .title > .other {
+  width: 80%;
+  margin: 10px auto;
+}
+/* line 71, ../sass/preview.sass */
+#main > .title > .other > div {
+  display: inline-block;
+}
+/* line 73, ../sass/preview.sass */
+#main > .title > .other > div > input {
+  margin: 0 20px;
+}
+/* line 75, ../sass/preview.sass */
+#main > .content {
+  padding: 20px 0;
+}
+/* line 77, ../sass/preview.sass */
+#main > .content > .type {
+  margin-bottom: 20px;
+}
+/* line 79, ../sass/preview.sass */
+#main > .content > .type > .title {
+  margin-bottom: 10px;
+}
+/* line 84, ../sass/preview.sass */
+#main > .content > .type > .title > .remark > span {
+  padding: 0 2px;
+}
+/* line 86, ../sass/preview.sass */
+#main > .content > .type > .title > .remark input {
+  width: 50px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  text-align: center;
+}
+/* line 92, ../sass/preview.sass */
+#main > .content > .type > .content > div {
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+  padding-right: 50px;
+  min-height: 90px;
+  border-bottom: 1px dotted;
+}
+/* line 100, ../sass/preview.sass */
+#main > .content > .type > .content > div:hover > .option {
+  display: block;
+}
+/* line 102, ../sass/preview.sass */
+#main > .content > .type > .content > div > .option {
+  display: none;
+  width: 50px;
+  position: absolute;
+  right: 0;
+  top: 1px;
+}
+/* line 108, ../sass/preview.sass */
+#main > .content > .type > .content > div > .option > a {
+  display: block;
+  margin: 5px 0;
+  padding: 2px 0;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #428bca;
+  color: #428bca;
+  border-radius: 2px;
+  z-index: 10;
+  cursor: pointer;
+}
+/* line 119, ../sass/preview.sass */
+#main > .content > .type > .content > div > .option > a:hover {
+  background-color: #428bca;
+  border: 1px solid #428bca;
+  color: #ffffff;
+}
+/* line 123, ../sass/preview.sass */
+#main > .content > .type > .content > div > .option > a.delete {
+  color: red;
+  border: 1px solid red;
+}
+/* line 126, ../sass/preview.sass */
+#main > .content > .type > .content > div > .option > a.delete:hover {
+  background-color: red;
+  border: 1px solid red;
+  color: #ffffff;
+}
+/* line 130, ../sass/preview.sass */
+#main > .content > .type > .content > div > span.num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 150%;
+  font-size: 10.5pt;
+}
+/* line 137, ../sass/preview.sass */
+#main > .content > .type > .content > div > .body p {
+  padding-left: 20px;
+}

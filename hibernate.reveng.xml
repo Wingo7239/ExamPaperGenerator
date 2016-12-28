@@ -5,4 +5,5 @@
   <table-filter match-catalog="Tiku" match-name="knowledge"/>
   <table-filter match-catalog="Tiku" match-name="question"/>
   <table-filter match-catalog="Tiku" match-name="cart"/>
+  <table-filter match-catalog="Tiku" match-name="paper"/>
 </hibernate-reverse-engineering>

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yw.domain.Knowledge;
 import com.yw.domain.Question;
+import com.yw.dto.QuesPreview;
 import com.yw.enums.QuestionTypeEnum;
 import com.yw.service.KnowledgeService;
 import com.yw.service.QuestionService;
@@ -57,9 +58,9 @@ public class QuesntionController {
 
 	@RequestMapping(value = "/question", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public Map<String,Object> question(@RequestParam("pageNow") String pageNow, @RequestParam("pageSize") String pageSize,
-			@RequestParam("knowledge") String knol, @RequestParam("type") String type,
-			@RequestParam("search") String search) {
+	public Map<String, Object> question(@RequestParam("pageNow") String pageNow,
+			@RequestParam("pageSize") String pageSize, @RequestParam("knowledge") String knol,
+			@RequestParam("type") String type, @RequestParam("search") String search) {
 		int pn = 1, ps = 15;
 		if (pageNow != null && pageNow != "") {
 			pn = Integer.parseInt(pageNow);
@@ -67,11 +68,25 @@ public class QuesntionController {
 		if (pageSize != null && pageSize != "") {
 			ps = Integer.parseInt(pageSize);
 		}
+		if (type.equals("0")) {
+			type = "";
+		}
 		List<Question> list = questionService.getQuestionListByPage(pn, ps, type, knol, "", search);
-		
-		HashMap<String,Object> res = new HashMap();
+
+		HashMap<String, Object> res = new HashMap();
 		res.put("pageCount", questionService.getQuestionPageCount(ps, type, knol, "", search));
 		res.put("list", list);
+		return res;
+
+	}
+
+	@RequestMapping(value = "/queslist", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public List<QuesPreview> quesList(@RequestParam("list") String idList) {
+		List<QuesPreview> res = new ArrayList<QuesPreview>();
+		for (String str : idList.split(",")) {
+			res.add(new QuesPreview(questionService.getById(Integer.parseInt(str))));
+		}
 		return res;
 
 	}
